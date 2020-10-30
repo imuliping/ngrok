@@ -3,7 +3,7 @@
 package client
 
 import (
-	"github.com/newflydd/ngrok/client/mvc"
+	"github.com/imuliping/ngrok/client/mvc"
 )
 
 // no auto-updating in debug mode

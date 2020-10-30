@@ -1,7 +1,7 @@
 package proto
 
 import (
-	"github.com/newflydd/ngrok/conn"
+	"github.com/imuliping/ngrok/conn"
 )
 
 type Tcp struct{}

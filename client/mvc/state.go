@@ -1,7 +1,7 @@
 package mvc
 
 import (
-	"github.com/newflydd/ngrok/proto"
+	"github.com/imuliping/ngrok/proto"
 	metrics "github.com/rcrowley/go-metrics"
 )
 

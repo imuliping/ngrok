@@ -3,7 +3,7 @@ package client
 import (
 	"flag"
 	"fmt"
-	"github.com/newflydd/ngrok/version"
+	"github.com/imuliping/ngrok/version"
 	"os"
 )
 

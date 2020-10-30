@@ -2,9 +2,9 @@ package client
 
 import (
 	"fmt"
+	"github.com/imuliping/ngrok/log"
+	"github.com/imuliping/ngrok/util"
 	"github.com/inconshreveable/mousetrap"
-	"github.com/newflydd/ngrok/log"
-	"github.com/newflydd/ngrok/util"
 	"math/rand"
 	"os"
 	"runtime"

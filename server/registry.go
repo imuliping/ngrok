@@ -3,8 +3,8 @@ package server
 import (
 	"encoding/gob"
 	"fmt"
-	"github.com/newflydd/ngrok/cache"
-	"github.com/newflydd/ngrok/log"
+	"github.com/imuliping/ngrok/cache"
+	"github.com/imuliping/ngrok/log"
 	"net"
 	"sync"
 	"time"

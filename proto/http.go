@@ -3,8 +3,8 @@ package proto
 import (
 	"bufio"
 	"bytes"
-	"github.com/newflydd/ngrok/conn"
-	"github.com/newflydd/ngrok/util"
+	"github.com/imuliping/ngrok/conn"
+	"github.com/imuliping/ngrok/util"
 	"io"
 	"io/ioutil"
 	"net"

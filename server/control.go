@@ -2,10 +2,10 @@ package server
 
 import (
 	"fmt"
-	"github.com/newflydd/ngrok/conn"
-	"github.com/newflydd/ngrok/msg"
-	"github.com/newflydd/ngrok/util"
-	"github.com/newflydd/ngrok/version"
+	"github.com/imuliping/ngrok/conn"
+	"github.com/imuliping/ngrok/msg"
+	"github.com/imuliping/ngrok/util"
+	"github.com/imuliping/ngrok/version"
 	"io"
 	"runtime/debug"
 	"strings"

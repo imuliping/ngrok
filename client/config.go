@@ -2,7 +2,7 @@ package client
 
 import (
 	"fmt"
-	"github.com/newflydd/ngrok/log"
+	"github.com/imuliping/ngrok/log"
 	"gopkg.in/yaml.v1"
 	"io/ioutil"
 	"net"

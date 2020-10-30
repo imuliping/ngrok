@@ -17,7 +17,7 @@
 - 普通玩家可以直接使用[Ngrok的官网](https://ngrok.com/)服务器，缺点就是有一点点慢，而且每次客户端重启后子域名会随之变化，无法固定使用。
 - 国内也有一些商家提供了Ngrok服务，比如[Sunny-Ngrok](https://www.ngrok.cc/)，同样是收费的，速度可能快一点。
 
-Ngrok源代码是开源的，部署在[Git](https://github.com/mamboer/ngrok)上，但是博主使用下来略觉繁琐，涉及到很多自认为没必要使用的技术，后期我重新在Git上发布了我重构后的[Ngrok项目](https://github.com/newflydd/ngrok)，配有[码云同步镜像](https://gitee.com/newflydd/ngrok)，以供其他朋友直接使用诸如`go build`或者`go install`简单命令进行跨平台编译和安装。
+Ngrok源代码是开源的，部署在[Git](https://github.com/mamboer/ngrok)上，但是博主使用下来略觉繁琐，涉及到很多自认为没必要使用的技术，后期我重新在Git上发布了我重构后的[Ngrok项目](https://github.com/imuliping/ngrok)，配有[码云同步镜像](https://gitee.com/imuliping/ngrok)，以供其他朋友直接使用诸如`go build`或者`go install`简单命令进行跨平台编译和安装。
 
 为了致敬原作者，我们对这些高端的Golang编程技术做一个简单的了解，对Go语言没有兴致的朋友可以直接跳过下面这段:
 - _go-bindata_ 技术，该技术是一套将任意资源文件转成二进制数据反向生成到Go代码供hash调用的技术，Ngrok的源码利用这一技术将公网证书和密钥，以及站点的HTML生成到go代码中去了，使其变成了一堆byte数组，在程序中hash调用。这么做固然有它的好处，但缺点也显而易见，因为这套技术要提前用一个项目的程序生成另一个项目的Go代码，所以编译起来难免繁琐，于是Ngrok提供了makefile文件以供用户make编译，这就有点尴尬了，本来好好的跨平台Go语言项目，被make和makefile活生生憋成了只能Linux使用的了。博主初期使用时硬着头皮安装了`Cygwin`，以及其中的`make`命令，个中的苦逼无以言表，索性后来了解原理后，将官方的Ngrok重构了一遍，避免了使用几乎是专属于Linux的make指令。
@@ -38,7 +38,7 @@ Ngrok源代码是开源的，部署在[Git](https://github.com/mamboer/ngrok)上
 - [Win32 OpenSSL v1.1.0f Light](http://slproweb.com/download/Win32OpenSSL_Light-1_1_0f.exe)证书生成程序
 - [MobaXterm](https://download.mobatek.net/10420170816103227/MobaXterm_Portable_v10.4.zip)几乎是最好的SSH客户端
 - [go1.9.2.windows-amd64.msi](https://redirector.gvt1.com/edgedl/go/go1.9.2.windows-amd64.msi)Go语言编译器，我现在用得最多的语言，一股子的亲切感，交叉编译Linux，ARM，X86等平台的目标程序就跟玩一样
-- [Ngrok源码](https://github.com/newflydd/ngrok)这是我自己重构的Ngrok项目，原版的要想用起来还得安装Cygwin等一堆工具，现在非常纯净，拿到手直接用最简单的命令编译，各平台通吃。这份代码不需要手工download，下面会介绍直接用命令获取。
+- [Ngrok源码](https://github.com/imuliping/ngrok)这是我自己重构的Ngrok项目，原版的要想用起来还得安装Cygwin等一堆工具，现在非常纯净，拿到手直接用最简单的命令编译，各平台通吃。这份代码不需要手工download，下面会介绍直接用命令获取。
 - [Git-windows-amd64](https://github.com/git-for-windows/git/releases/download/v2.14.3.windows.1/Git-2.14.3-64-bit.exe)这个就不赘述了，程序猿都知道。
 
 ## 从零开始操作
@@ -66,7 +66,7 @@ openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateseria
 OK，接下来正式下载，编译，和安装Ngrok的服务器端。
 你一定会以为这一系列操作很复杂，其实对于Go来说仅仅是一条命令行的指令：
 ```
-go get github.com/newflydd/ngrok/main/ngrokd
+go get github.com/imuliping/ngrok/main/ngrokd
 ```
 就这么简单，就这么神奇，简单到你不管在什么路径下执行这行命令都没有问题。这行命令的背后可不简单，go首先会去下载我上传到git上的Ngrok代码，然后试着编译，编译过程中它会发现Ngrok项目还七零八落地依赖了其他各个项目，于是Go用递归的方式再去执行go get命令，直到将所有依赖通通下载回来，最终它成功编译后，将生成的目标程序存放在`%GOPATH%\bin`目录下，默认情况下它是根据当前机器的环境来生成可执行文件，如果做一些简单的调整，它即可以交叉编译不同平台下的可执行文件。
 
@@ -93,7 +93,7 @@ Listening for control and proxy connections on [::]:4443
 ```
 set GOOS=linux
 set GOARCH=arm
-go get github.com/newflydd/ngrok/main/ngrok
+go get github.com/imuliping/ngrok/main/ngrok
 ```
 OK，就这么简单，就这么神奇，Windows AMD64上的Go利用简单的两个环境变量，直接构造出了Linux ARM上的可执行文件，多么伟大的语言。。。
 GOOS GOARCH的组合可以参照：

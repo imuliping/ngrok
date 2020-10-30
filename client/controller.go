@@ -2,12 +2,12 @@ package client
 
 import (
 	"fmt"
-	"github.com/newflydd/ngrok/client/mvc"
-	"github.com/newflydd/ngrok/client/views/term"
-	"github.com/newflydd/ngrok/client/views/web"
-	"github.com/newflydd/ngrok/log"
-	"github.com/newflydd/ngrok/proto"
-	"github.com/newflydd/ngrok/util"
+	"github.com/imuliping/ngrok/client/mvc"
+	"github.com/imuliping/ngrok/client/views/term"
+	"github.com/imuliping/ngrok/client/views/web"
+	"github.com/imuliping/ngrok/log"
+	"github.com/imuliping/ngrok/proto"
+	"github.com/imuliping/ngrok/util"
 	"sync"
 )
 

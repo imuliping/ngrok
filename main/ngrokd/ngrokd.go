@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/newflydd/ngrok/server"
+	"github.com/imuliping/ngrok/server"
 )
 
 func main() {
