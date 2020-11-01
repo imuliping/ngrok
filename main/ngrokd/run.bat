@@ -1,1 +1,1 @@
-ngrokd.exe -domain="hexcode.cn" -httpAddr=":8081" -httpsAddr=":8082" -log ./ngrokd.log &
+ngrokd.exe -domain="test.maplerobot.ca" -httpAddr=":8081" -httpsAddr=":8082" -log ./ngrokd.log &

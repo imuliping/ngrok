@@ -30,7 +30,7 @@ Ngrok源代码是开源的，部署在[Git](https://github.com/mamboer/ngrok)上
 下面我们言归正传，从零开始部署Ngrok，说说准备工作：
 
 ### 硬件部分
-- 一台公网IP服务器，本实验采用Windows系统，拥有域名hexcode.cn。
+- 一台公网IP服务器，本实验采用Windows系统，拥有域名maplerobot。
 - 一台装有RASPBIAN操作系统的树莓派，用来部署Ngrok客户端，使其可以SSH内网穿透
 - 一台Windows PC，开发环境
 
@@ -45,7 +45,7 @@ Ngrok源代码是开源的，部署在[Git](https://github.com/mamboer/ngrok)上
 ### 证书生成
 Ngrok需要使用SSL证书确保穿透过程中的通信是加密安全的，因此需要SSL证书，值得庆幸的是并不强制去购买CA认证机构颁发的证书，普通用户直接使用OpenSSL工具就可以自行生成证书。方法如下：
 - 下载上述准备工作软件部分的SSL证书生成程序，安装后，将安装路径下的bin目录添加到环境变量，方便cmd直接运行`openssl.exe`。
-- 任意路径打开cmd，执行下面命令：(注意，将两处MY_DOMAIN全部替换成自己的域名，比如我的hexcode.cn)
+- 任意路径打开cmd，执行下面命令：(注意，将两处MY_DOMAIN全部替换成自己的域名，比如我的maplerobot.ca)
 ```
 openssl genrsa -out rootCA.key 2048
 openssl req -x509 -new -nodes -key rootCA.key -subj "/CN=MY_DOMAIN" -days 5000 -out rootCA.pem
@@ -71,7 +71,7 @@ go get github.com/imuliping/ngrok/main/ngrokd
 就这么简单，就这么神奇，简单到你不管在什么路径下执行这行命令都没有问题。这行命令的背后可不简单，go首先会去下载我上传到git上的Ngrok代码，然后试着编译，编译过程中它会发现Ngrok项目还七零八落地依赖了其他各个项目，于是Go用递归的方式再去执行go get命令，直到将所有依赖通通下载回来，最终它成功编译后，将生成的目标程序存放在`%GOPATH%\bin`目录下，默认情况下它是根据当前机器的环境来生成可执行文件，如果做一些简单的调整，它即可以交叉编译不同平台下的可执行文件。
 
 执行过程可能会有些漫长，跟网络环境相关，建议使用全局科学上网工具。
-成功编译后，在`%GOPATH%\bin`目录下会出现`ngrokd.exe`可执行程序，这就是你要上传到Windows服务器的程序，大小在8M左右，同时你需要上传第一步生成SSL证书中的 _snakeoil.crt_ , _snakeoil.key_ 两份文件到同目录。`ngrokd.exe`双击直接运行是没有意义的，它需要配有参数，因此我们编写bat脚本来方便运行（将下面的MY_DOMAIN替换成自己的域名，比如我的hexcode.cn）：
+成功编译后，在`%GOPATH%\bin`目录下会出现`ngrokd.exe`可执行程序，这就是你要上传到Windows服务器的程序，大小在8M左右，同时你需要上传第一步生成SSL证书中的 _snakeoil.crt_ , _snakeoil.key_ 两份文件到同目录。`ngrokd.exe`双击直接运行是没有意义的，它需要配有参数，因此我们编写bat脚本来方便运行（将下面的MY_DOMAIN替换成自己的域名，比如我的maplerobot.ca）：
 ```
 ngrokd.exe -domain="MY_DOMAIN" -log ./ngrokd.log &
 ```
@@ -127,7 +127,7 @@ chmod a+x ngrok
 nano ngrok.cfg
 
 ```
-新建ngrok.cfg配置文件，并用nano文本编辑器打开，输入以下文本（将MY_DOMAIN替换成自己的域名，比如我的hexcode.cn）：
+新建ngrok.cfg配置文件，并用nano文本编辑器打开，输入以下文本（将MY_DOMAIN替换成自己的域名，比如我的maplerobot.ca）：
 ```
 server_addr: "MY_DOMAIN:4443"
 trust_host_root_certs: false
